@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STMS</title>
+  <style>
+    @font-face {
+      font-family: "Noto Serif TC";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("data:font/ttf;base64,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") format("truetype");
+    }
+
+    :root {
+      --panel: #b5dff2;
+      --ink: #071b26;
+      --teal: #144d6f;
+      --stroke: clamp(2px, 0.273vh, 4px);
+      --radius: clamp(8px, 0.82vh, 14px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background: #fff;
+      color: #000;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: Arimo, Arial, "Liberation Sans", Helvetica, sans-serif;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      border: var(--stroke) solid #000;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .topbar {
+      flex: 0 0 auto;
+      min-height: 5.66vh;
+      min-width: 0;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8vw;
+      padding: 0.4vh 0.9vw 0.4vh 0.9vw;
+      background: var(--panel);
+      border-bottom: var(--stroke) solid #000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7vw;
+      min-width: 0;
+    }
+
+    .logo {
+      height: 4.3vh;
+      width: auto;
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .version {
+      margin: 0;
+      color: #000;
+      font-size: 3.2vh;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.7vw;
+      flex: 0 0 auto;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .top-actions button,
+    .menu button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: var(--stroke) solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--teal);
+      color: #fff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .top-actions button {
+      height: 4.36vh;
+      padding: 0 1.15em;
+      font-size: 2.86vh;
+      font-weight: 400;
+    }
+
+    .top-actions button:focus-visible,
+    .menu button:focus-visible {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+
+    .workspace {
+      flex: 1 1 auto;
+      min-height: 0;
+      min-width: 0;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .menu {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 3.07%;
+      padding: 2.05vh 3.41% 2.11vh;
+      border-bottom: var(--stroke) solid var(--teal);
+    }
+
+    .menu button {
+      height: 4.37vh;
+      min-width: 0;
+      padding: 0 0.6em;
+      font-size: 2.25vh;
+      font-weight: 400;
+    }
+
+    .stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .headline {
+      margin: 0;
+      color: #000;
+      font-family: "Noto Serif TC", "Songti TC", "PMingLiU", "Noto Serif CJK TC", serif;
+      font-size: 12.6vh;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      text-align: center;
+      max-width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        flex-basis: auto;
+        flex-wrap: wrap;
+        align-items: center;
+        row-gap: 8px;
+        padding: 8px 10px;
+      }
+
+      .logo { height: 36px; }
+
+      .version { font-size: 18px; }
+
+      .top-actions {
+        margin-left: auto;
+        gap: 8px;
+      }
+
+      .top-actions button {
+        height: 36px;
+        padding: 0 12px;
+        font-size: 14px;
+        border-radius: 8px;
+      }
+
+      .menu {
+        gap: 8px;
+        padding: 12px 12px 14px;
+      }
+
+      .menu button {
+        height: 40px;
+        font-size: 14px;
+        border-radius: 8px;
+      }
+
+      .headline {
+        font-size: clamp(36px, 10vw, 72px);
+        letter-spacing: 0.04em;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .menu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+      .top-actions { width: 100%; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 360 360" role="img" aria-label="JWMP Solution">
+          <circle cx="180" cy="180" r="176" fill="#fff"></circle>
+          <circle cx="180" cy="180" r="169.5" fill="none" stroke="#0c193e" stroke-width="4.6"></circle>
+          <circle cx="180" cy="180" r="154.5" fill="none" stroke="#174888" stroke-width="4.4"></circle>
+          <g fill="none" stroke="#1a649e" stroke-width="2.4" stroke-linecap="round">
+            <line x1="171" y1="100" x2="188" y2="88"></line>
+            <line x1="171" y1="114" x2="189" y2="126"></line>
+            <line x1="192" y1="90" x2="196" y2="118"></line>
+          </g>
+          <g fill="#1a649e">
+            <circle cx="184" cy="96" r="3.1"></circle>
+            <circle cx="185" cy="118" r="3.1"></circle>
+            <circle cx="198" cy="104" r="2.7"></circle>
+          </g>
+          <path fill="none" stroke="#0c183e" stroke-width="3.1" stroke-linejoin="round" d="M174.92,98.90 L175.81,102.50 L185.89,104.18 L185.84,110.39 L175.74,111.91 L173.34,118.89 L171.44,122.07 L177.37,130.38 L172.95,134.74 L164.73,128.67 L158.10,131.92 L154.50,132.81 L152.82,142.89 L146.61,142.84 L145.09,132.74 L138.11,130.34 L134.93,128.44 L126.62,134.37 L122.26,129.95 L128.33,121.73 L125.08,115.10 L124.19,111.50 L114.11,109.82 L114.16,103.61 L124.26,102.09 L126.66,95.11 L128.56,91.93 L122.63,83.62 L127.05,79.26 L135.27,85.33 L141.90,82.08 L145.50,81.19 L147.18,71.11 L153.39,71.16 L154.91,81.26 L161.89,83.66 L165.07,85.56 L173.38,79.63 L177.74,84.05 L171.67,92.27 Z"></path>
+          <circle cx="150" cy="107" r="11" fill="#fff" stroke="#0c183e" stroke-width="2.7"></circle>
+          <path fill="none" stroke="#2a80c4" stroke-width="2.6" stroke-linejoin="round" d="M219.85,81.37 L219.21,83.57 L224.31,87.69 L222.34,91.03 L216.26,88.59 L212.82,91.59 L210.82,92.69 L211.51,99.21 L207.75,100.18 L205.19,94.16 L200.63,93.85 L198.43,93.21 L194.31,98.31 L190.97,96.34 L193.41,90.26 L190.41,86.82 L189.31,84.82 L182.79,85.51 L181.82,81.75 L187.84,79.19 L188.15,74.63 L188.79,72.43 L183.69,68.31 L185.66,64.97 L191.74,67.41 L195.18,64.41 L197.18,63.31 L196.49,56.79 L200.25,55.82 L202.81,61.84 L207.37,62.15 L209.57,62.79 L213.69,57.69 L217.03,59.66 L214.59,65.74 L217.59,69.18 L218.69,71.18 L225.21,70.49 L226.18,74.25 L220.16,76.81 Z"></path>
+          <circle cx="204" cy="78" r="6.6" fill="#fff" stroke="#2a80c4" stroke-width="2.3"></circle>
+          <path fill="none" stroke="#0c183e" stroke-width="2.5" stroke-linejoin="round" d="M216.89,141.85 L215.80,143.60 L219.35,148.58 L216.79,151.02 L211.99,147.22 L208.27,148.96 L206.26,149.42 L205.25,155.46 L201.71,155.37 L201.01,149.29 L197.15,147.89 L195.40,146.80 L190.42,150.35 L187.98,147.79 L191.78,142.99 L190.04,139.27 L189.58,137.26 L183.54,136.25 L183.63,132.71 L189.71,132.01 L191.11,128.15 L192.20,126.40 L188.65,121.42 L191.21,118.98 L196.01,122.78 L199.73,121.04 L201.74,120.58 L202.75,114.54 L206.29,114.63 L206.99,120.71 L210.85,122.11 L212.60,123.20 L217.58,119.65 L220.02,122.21 L216.22,127.01 L217.96,130.73 L218.42,132.74 L224.46,133.75 L224.37,137.29 L218.29,137.99 Z"></path>
+          <circle cx="204" cy="135" r="6" fill="#fff" stroke="#0c183e" stroke-width="2.2"></circle>
+          <text x="180" y="236" text-anchor="middle" font-family="Arimo, Arial, Liberation Sans, Helvetica, sans-serif" font-size="74" font-weight="700" fill="#0c183e" textLength="236" lengthAdjust="spacingAndGlyphs">JWMP</text>
+          <text x="180" y="278" text-anchor="middle" font-family="Arimo, Arial, Liberation Sans, Helvetica, sans-serif" font-size="38" font-weight="400" fill="#0c183e" textLength="196" lengthAdjust="spacingAndGlyphs">Solution</text>
+        </svg>
+        <p class="version">STMS v1.0</p>
+      </div>
+      <div class="top-actions">
+        <button type="button">Reset password</button>
+        <button type="button">Logout</button>
+      </div>
+    </header>
+    <section class="workspace" aria-label="Home">
+      <div class="menu">
+        <button type="button">Button 1</button>
+        <button type="button">Button 2</button>
+        <button type="button">Button 3</button>
+        <button type="button">Button 4</button>
+        <button type="button">Button 5</button>
+        <button type="button">Button 6</button>
+      </div>
+      <div class="stage">
+        <h1 class="headline" lang="zh-Hant">登入後的畫面</h1>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

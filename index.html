@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>STMS Login</title>
+  <title>STMS 登入</title>
   <style>
     :root {
       --panel: #b5dff2;
@@ -29,7 +29,7 @@
       align-items: center;
       justify-content: center;
       padding: 28px 20px;
-      font-family: Arimo, Arial, "Liberation Sans", Helvetica, sans-serif;
+      font-family: Arimo, "PingFang TC", "PingFang HK", "Microsoft JhengHei", "Noto Sans TC", Arial, "Liberation Sans", Helvetica, sans-serif;
       color: #000;
     }
 
@@ -59,7 +59,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2.7cqw 12.6cqw 2.15cqw;
+      padding: 1.05cqw 12.6cqw 1.6cqw;
     }
 
     .frame {
@@ -71,17 +71,34 @@
     }
 
     .logo {
-      width: 21.6cqw;
-      height: 21.6cqw;
+      width: 16.2cqw;
+      height: 16.2cqw;
       display: block;
       flex: 0 0 auto;
     }
 
-    .version {
-      margin: 3.15cqw 0 0;
+    .brand {
+      margin: 7.4cqw 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .system-name {
+      margin: 0;
       padding: 0;
       color: #fff;
-      font-size: 2.85cqw;
+      font-size: 2.35cqw;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+
+    .version {
+      margin: 0.85cqw 0 0;
+      padding: 0;
+      color: #fff;
+      font-size: 2.1cqw;
       font-weight: 400;
       letter-spacing: 0.01em;
       line-height: 1;
@@ -89,7 +106,7 @@
 
     form {
       width: 100%;
-      margin: 2.35cqw 0 0;
+      margin: 2cqw 0 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -203,7 +220,7 @@
   </style>
 </head>
 <body>
-  <h1 class="sr-only">STMS login</h1>
+  <h1 class="sr-only">STMS 登入</h1>
   <main class="panel">
     <svg class="frame" viewBox="0 0 1666 1184" preserveAspectRatio="none" aria-hidden="true">
       <rect x="3.5" y="3.5" width="1659" height="1177" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="39 16"></rect>
@@ -238,23 +255,26 @@
       <text x="180" y="278" text-anchor="middle" font-family="Arimo, Arial, Liberation Sans, Helvetica, sans-serif" font-size="38" font-weight="400" fill="#0c183e" textLength="196" lengthAdjust="spacingAndGlyphs">Solution</text>
     </svg>
 
-    <p class="version">STMS v1.0</p>
+    <div class="brand">
+      <p class="system-name">學校代課教學系統</p>
+      <p class="version">STMS v1.0</p>
+    </div>
 
     <form id="login-form" action="#" method="post" novalidate>
       <div class="field">
         <div class="field-face">
-          <label for="login-name">Login name :</label>
+          <label for="login-name">登入名稱：</label>
           <input id="login-name" name="loginName" type="text" autocomplete="username" spellcheck="false">
         </div>
       </div>
       <div class="field">
         <div class="field-face">
-          <label for="login-password">Login password :</label>
+          <label for="login-password">登入密碼：</label>
           <input id="login-password" name="loginPassword" type="password" autocomplete="current-password">
         </div>
       </div>
-      <button class="login-btn" type="submit">Login</button>
-      <button class="forget" id="forget" type="button">Forget password</button>
+      <button class="login-btn" type="submit">登入</button>
+      <button class="forget" id="forget" type="button">忘記密碼</button>
     </form>
     </div>
 
@@ -274,14 +294,14 @@
         var nameEmpty = nameInput.value.trim() === "";
         var passEmpty = passInput.value.trim() === "";
         if (nameEmpty || passEmpty) {
-          note.textContent = "Enter your login name and password.";
+          note.textContent = "請輸入登入名稱和密碼。";
           return;
         }
         note.textContent = "";
       });
 
       forget.addEventListener("click", function () {
-        note.textContent = "Password reset is not wired yet.";
+        note.textContent = "密碼重設功能尚未接入。";
       });
     })();
   </script>

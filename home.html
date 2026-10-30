@@ -96,6 +96,94 @@
       outline-offset: 2px;
     }
 
+    .menu {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 12px 22px 0;
+      border-bottom: 2px solid #000;
+    }
+
+    .menu-btn {
+      appearance: none;
+      -webkit-appearance: none;
+      margin: 0 0 12px;
+      border: 2px solid #071b26;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      padding: 8px 16px;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.2;
+      cursor: pointer;
+    }
+
+    .menu-btn:hover {
+      background: #f4fbfe;
+    }
+
+    .menu-btn:focus-visible {
+      outline: 2px solid #071b26;
+      outline-offset: 2px;
+    }
+
+    .timetable-wrap {
+      padding: 18px 22px 36px;
+      overflow-x: auto;
+    }
+
+    .timetable {
+      width: 100%;
+      min-width: 1180px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      color: #000;
+      font-size: 0.95rem;
+    }
+
+    .timetable th,
+    .timetable td {
+      border: 1px solid #000;
+      padding: 8px 6px;
+      text-align: center;
+      font-weight: 400;
+      background: #fff;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .timetable thead tr:first-child th {
+      background: #E2F0AA;
+    }
+
+    .timetable .period {
+      width: 11%;
+    }
+
+    .timetable .time {
+      width: 30%;
+    }
+
+    .timetable td.span,
+    .timetable tr.assembly th,
+    .timetable tr.assembly td.time {
+      background: #b5dff2;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .note {
       margin: 18px 22px 0;
       text-align: right;
@@ -122,6 +210,10 @@
 
       .account {
         width: 100%;
+      }
+
+      .timetable {
+        font-size: 0.82rem;
       }
     }
   </style>
@@ -160,6 +252,135 @@
       <button class="bar-btn" id="logout" type="button">登出</button>
     </div>
   </header>
+  <nav class="menu" aria-label="主選單">
+    <button class="menu-btn" id="teacher-timetable" type="button">老師時間表</button>
+  </nav>
+  <section class="timetable-wrap" id="teacher-timetable-panel" aria-labelledby="teacher-timetable">
+    <table class="timetable">
+      <thead>
+        <tr>
+          <th class="period" scope="col" rowspan="2">時段</th>
+          <th class="time" scope="col" rowspan="2">（ 全日課 / 半日課 ）</th>
+          <th scope="col">星期一</th>
+          <th scope="col">星期二</th>
+          <th scope="col">星期三</th>
+          <th scope="col">星期四</th>
+          <th scope="col">星期五</th>
+        </tr>
+        <tr>
+          <th scope="col" colspan="5">班別 / 課室 / 科目</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="assembly">
+          <th scope="row">早會</th>
+          <td class="time">（ 08:15 – 08:40 / 08:15 – 08:35 ）</td>
+          <td class="span" colspan="5">早會</td>
+        </tr>
+        <tr>
+          <th scope="row">第一節</th>
+          <td class="time">（ 08:40 – 09:20 / 08:35 – 09:00 ）</td>
+          <td>1A　205　數學</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">第二節</th>
+          <td class="time">（ 09:20 – 09:55 / 09:00 – 09:25 ）</td>
+          <td>2B　301　英文</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="assembly">
+          <th scope="row">小息</th>
+          <td class="time">（ 09:55 – 10:10 / 09:25 – 09:40 ）</td>
+          <td class="span" colspan="5">小息</td>
+        </tr>
+        <tr>
+          <th scope="row">第三節</th>
+          <td class="time">（ 10:10 – 10:50 / 09:40 – 10:05 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">第四節</th>
+          <td class="time">（ 10:50 – 11:25 / 10:05 – 10:30 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="assembly">
+          <th scope="row">小息</th>
+          <td class="time">（ 11:25 – 11:35 / 10:30 – 10:45 ）</td>
+          <td class="span" colspan="5">小息</td>
+        </tr>
+        <tr>
+          <th scope="row">第五節</th>
+          <td class="time">（ 11:35 – 12:15 / 10:45 – 11:10 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">第六節</th>
+          <td class="time">（ 12:15 – 12:50 / 11:10 – 11:45 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="assembly">
+          <th scope="row">午膳 / 小息</th>
+          <td class="time">（ 12:50 – 14:00 / 11:35 – 11:45 ）</td>
+          <td class="span" colspan="5">午膳 / 小息</td>
+        </tr>
+        <tr class="assembly">
+          <th scope="row">點名</th>
+          <td class="time">（ 14:00 – 14:05 / — ）</td>
+          <td class="span" colspan="5">點名</td>
+        </tr>
+        <tr>
+          <th scope="row">第七節</th>
+          <td class="time">（ 14:05 – 14:45 / 11:45 – 12:10 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">第八節</th>
+          <td class="time">（ 14:45 – 15:20 / 12:10 – 12:35 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">第九節</th>
+          <td class="time">（ 15:20 – 16:00 / 12:35 – 13:00 ）</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
   <p class="note" id="note" role="status" aria-live="polite"></p>
   <script>
     (function () {
@@ -170,6 +391,10 @@
       }
 
       document.getElementById("display-name").textContent = displayName;
+
+      document.getElementById("teacher-timetable").addEventListener("click", function () {
+        document.getElementById("teacher-timetable-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
 
       document.getElementById("reset-password").addEventListener("click", function () {
         document.getElementById("note").textContent = "密碼重設功能尚未接入。";

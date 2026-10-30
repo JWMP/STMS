@@ -1,0 +1,13 @@
+name = "stms"
+main = "src/index.js"
+compatibility_date = "2026-10-30"
+account_id = "b452409c22404d524d303a77d6b6ab6b"
+
+[assets]
+directory = "."
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "stms"
+database_id = "1cfd25e5-6cce-4bac-beca-00eb63e2528d"

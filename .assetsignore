@@ -1,0 +1,10 @@
+.git
+.wrangler
+.DS_Store
+src
+scripts
+node_modules
+schema.sql
+wrangler.toml
+README.md
+.gitignore

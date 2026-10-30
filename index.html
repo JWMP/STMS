@@ -45,10 +45,18 @@
       border: 0;
     }
 
+    .login {
+      position: relative;
+      width: min(833px, calc(100vw - 40px), calc((100vh - 120px) * 1666 / 1184));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .panel {
       container-type: inline-size;
       position: relative;
-      width: min(833px, calc(100vw - 40px), calc((100vh - 56px) * 1666 / 1184));
+      width: 100%;
       aspect-ratio: 1666 / 1184;
       background: var(--panel);
     }
@@ -209,19 +217,21 @@
 
     .note {
       position: absolute;
-      left: 8%;
-      right: 8%;
-      bottom: 1.15cqw;
-      margin: 0;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 1rem 0 0;
       text-align: center;
       color: #c41212;
-      font-size: 1.62cqw;
-      line-height: 1;
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.35;
     }
   </style>
 </head>
 <body>
   <h1 class="sr-only">STMS 登入</h1>
+  <div class="login">
   <main class="panel">
     <svg class="frame" viewBox="0 0 1666 1184" preserveAspectRatio="none" aria-hidden="true">
       <rect x="3.5" y="3.5" width="1659" height="1177" fill="none" stroke="#000" stroke-width="5" stroke-dasharray="39 16"></rect>
@@ -279,8 +289,9 @@
     </form>
     </div>
 
-    <p class="note" id="note" role="status" aria-live="polite"></p>
   </main>
+  <p class="note" id="note" role="status" aria-live="polite"></p>
+  </div>
 
   <script>
     (function () {
@@ -299,6 +310,30 @@
           return;
         }
         note.textContent = "";
+        var apiOrigin = location.hostname === "stms.mr-mpwong-jimmy.workers.dev" ? "" : "https://stms.mr-mpwong-jimmy.workers.dev";
+        fetch(apiOrigin + "/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            loginName: nameInput.value.trim(),
+            password: passInput.value
+          })
+        }).then(function (response) {
+          return response.json().then(function (data) {
+            return { ok: response.ok, data: data };
+          }).catch(function () {
+            return { ok: false, data: {} };
+          });
+        }).then(function (result) {
+          if (!result.ok) {
+            note.textContent = result.data.message || "登入名稱或密碼不正確。";
+            return;
+          }
+          sessionStorage.setItem("stmsDisplayName", result.data.displayName || nameInput.value.trim());
+          window.location.href = "home.html";
+        }).catch(function () {
+          note.textContent = "登入服務暫時無法使用。";
+        });
       });
 
       forget.addEventListener("click", function () {

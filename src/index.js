@@ -15,9 +15,50 @@ export default {
       return handleLogin(request, env);
     }
 
-    return env.ASSETS.fetch(request);
+    if (url.pathname === "/api/teachers" && request.method === "GET") {
+      return handleTeachers(env, request);
+    }
+
+    if (url.pathname === "/api/timetable" && request.method === "GET") {
+      return handleTimetable(url, env, request);
+    }
+
+    return serveAsset(request, env);
   },
 };
+
+async function serveAsset(request, env) {
+  const asset = await env.ASSETS.fetch(request);
+  const type = asset.headers.get("content-type") || "";
+  if (!type.includes("text/html")) return asset;
+
+  const headers = new Headers(asset.headers);
+  headers.set("Cache-Control", "no-store");
+  return new Response(asset.body, {
+    status: asset.status,
+    statusText: asset.statusText,
+    headers: headers,
+  });
+}
+
+async function handleTeachers(env, request) {
+  const result = await env.DB.prepare(
+    "SELECT DISTINCT t.teacher AS teacher, u.display_name AS displayName FROM timetable t LEFT JOIN users u ON u.user_name = t.teacher COLLATE NOCASE ORDER BY t.teacher"
+  ).all();
+  return json({ teachers: result.results }, 200, request);
+}
+
+async function handleTimetable(url, env, request) {
+  const teacher = (url.searchParams.get("teacher") || "").trim();
+  if (!teacher) {
+    return json({ lessons: [] }, 200, request);
+  }
+
+  const result = await env.DB.prepare(
+    'SELECT week, lesson, "class" AS className, room, subject FROM timetable WHERE teacher = ?1 COLLATE NOCASE ORDER BY week, lesson'
+  ).bind(teacher).all();
+  return json({ lessons: result.results }, 200, request);
+}
 
 async function handleLogin(request, env) {
   let body;
@@ -122,7 +163,7 @@ function json(data, status, request) {
 function corsHeaders(request) {
   return {
     "Access-Control-Allow-Origin": request.headers.get("Origin") || "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     Vary: "Origin",
   };

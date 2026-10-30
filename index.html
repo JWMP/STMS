@@ -330,7 +330,7 @@
             return;
           }
           sessionStorage.setItem("stmsDisplayName", result.data.displayName || nameInput.value.trim());
-          window.location.href = "home.html";
+          window.location.replace("home.html");
         }).catch(function () {
           note.textContent = "登入服務暫時無法使用。";
         });

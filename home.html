@@ -4,6 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>STMS 主頁</title>
+  <script>
+    (function () {
+      function signedOut() {
+        return !sessionStorage.getItem("stmsDisplayName");
+      }
+
+      function leaveIfSignedOut() {
+        if (!signedOut()) return;
+        document.documentElement.setAttribute("hidden", "");
+        location.replace("index.html");
+      }
+
+      leaveIfSignedOut();
+      window.addEventListener("pageshow", leaveIfSignedOut);
+      window.addEventListener("pagehide", function () {
+        if (signedOut()) document.documentElement.setAttribute("hidden", "");
+      });
+    })();
+  </script>
   <style>
     * { box-sizing: border-box; }
 
@@ -129,18 +148,48 @@
       outline-offset: 2px;
     }
 
+    .teacher-picker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    .teacher-picker select {
+      min-width: 240px;
+      border: 2px solid #071b26;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 1rem;
+    }
+
     .timetable-wrap {
       padding: 18px 22px 36px;
+      max-width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .timetable {
       width: 100%;
-      min-width: 1180px;
+      min-width: 68em;
       border-collapse: collapse;
       table-layout: fixed;
       color: #000;
       font-size: 0.95rem;
+    }
+
+    .timetable col.col-period {
+      width: 6.2em;
+    }
+
+    .timetable col.col-time {
+      width: 18em;
     }
 
     .timetable th,
@@ -158,12 +207,9 @@
       background: #E2F0AA;
     }
 
-    .timetable .period {
-      width: 11%;
-    }
-
+    .timetable .period,
     .timetable .time {
-      width: 30%;
+      white-space: nowrap;
     }
 
     .timetable td.span,
@@ -201,15 +247,34 @@
       .topbar {
         align-items: flex-start;
         flex-wrap: wrap;
+        padding: 10px 12px;
       }
 
       .system-name {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         letter-spacing: 0.04em;
       }
 
       .account {
         width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+
+      .menu,
+      .timetable-wrap {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .teacher-picker {
+        flex-wrap: wrap;
+      }
+
+      .teacher-picker select {
+        min-width: 0;
+        flex: 1 1 12rem;
+        max-width: 100%;
       }
 
       .timetable {
@@ -256,7 +321,18 @@
     <button class="menu-btn" id="teacher-timetable" type="button">老師時間表</button>
   </nav>
   <section class="timetable-wrap" id="teacher-timetable-panel" aria-labelledby="teacher-timetable">
+    <div class="teacher-picker">
+      <label for="teacher-select">老師</label>
+      <select id="teacher-select">
+        <option value="">請選擇老師</option>
+      </select>
+    </div>
     <table class="timetable">
+      <colgroup>
+        <col class="col-period">
+        <col class="col-time">
+        <col span="5">
+      </colgroup>
       <thead>
         <tr>
           <th class="period" scope="col" rowspan="2">時段</th>
@@ -280,20 +356,20 @@
         <tr>
           <th scope="row">第一節</th>
           <td class="time">（ 08:40 – 09:20 / 08:35 – 09:00 ）</td>
-          <td>1A　205　數學</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="1"></td>
+          <td data-week="2" data-lesson="1"></td>
+          <td data-week="3" data-lesson="1"></td>
+          <td data-week="4" data-lesson="1"></td>
+          <td data-week="5" data-lesson="1"></td>
         </tr>
         <tr>
           <th scope="row">第二節</th>
           <td class="time">（ 09:20 – 09:55 / 09:00 – 09:25 ）</td>
-          <td>2B　301　英文</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="2"></td>
+          <td data-week="2" data-lesson="2"></td>
+          <td data-week="3" data-lesson="2"></td>
+          <td data-week="4" data-lesson="2"></td>
+          <td data-week="5" data-lesson="2"></td>
         </tr>
         <tr class="assembly">
           <th scope="row">小息</th>
@@ -303,20 +379,20 @@
         <tr>
           <th scope="row">第三節</th>
           <td class="time">（ 10:10 – 10:50 / 09:40 – 10:05 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="3"></td>
+          <td data-week="2" data-lesson="3"></td>
+          <td data-week="3" data-lesson="3"></td>
+          <td data-week="4" data-lesson="3"></td>
+          <td data-week="5" data-lesson="3"></td>
         </tr>
         <tr>
           <th scope="row">第四節</th>
           <td class="time">（ 10:50 – 11:25 / 10:05 – 10:30 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="4"></td>
+          <td data-week="2" data-lesson="4"></td>
+          <td data-week="3" data-lesson="4"></td>
+          <td data-week="4" data-lesson="4"></td>
+          <td data-week="5" data-lesson="4"></td>
         </tr>
         <tr class="assembly">
           <th scope="row">小息</th>
@@ -326,20 +402,20 @@
         <tr>
           <th scope="row">第五節</th>
           <td class="time">（ 11:35 – 12:15 / 10:45 – 11:10 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="5"></td>
+          <td data-week="2" data-lesson="5"></td>
+          <td data-week="3" data-lesson="5"></td>
+          <td data-week="4" data-lesson="5"></td>
+          <td data-week="5" data-lesson="5"></td>
         </tr>
         <tr>
           <th scope="row">第六節</th>
           <td class="time">（ 12:15 – 12:50 / 11:10 – 11:45 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="6"></td>
+          <td data-week="2" data-lesson="6"></td>
+          <td data-week="3" data-lesson="6"></td>
+          <td data-week="4" data-lesson="6"></td>
+          <td data-week="5" data-lesson="6"></td>
         </tr>
         <tr class="assembly">
           <th scope="row">午膳 / 小息</th>
@@ -354,29 +430,29 @@
         <tr>
           <th scope="row">第七節</th>
           <td class="time">（ 14:05 – 14:45 / 11:45 – 12:10 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="7"></td>
+          <td data-week="2" data-lesson="7"></td>
+          <td data-week="3" data-lesson="7"></td>
+          <td data-week="4" data-lesson="7"></td>
+          <td data-week="5" data-lesson="7"></td>
         </tr>
         <tr>
           <th scope="row">第八節</th>
           <td class="time">（ 14:45 – 15:20 / 12:10 – 12:35 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="8"></td>
+          <td data-week="2" data-lesson="8"></td>
+          <td data-week="3" data-lesson="8"></td>
+          <td data-week="4" data-lesson="8"></td>
+          <td data-week="5" data-lesson="8"></td>
         </tr>
         <tr>
           <th scope="row">第九節</th>
           <td class="time">（ 15:20 – 16:00 / 12:35 – 13:00 ）</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td data-week="1" data-lesson="9"></td>
+          <td data-week="2" data-lesson="9"></td>
+          <td data-week="3" data-lesson="9"></td>
+          <td data-week="4" data-lesson="9"></td>
+          <td data-week="5" data-lesson="9"></td>
         </tr>
       </tbody>
     </table>
@@ -392,6 +468,60 @@
 
       document.getElementById("display-name").textContent = displayName;
 
+      var apiOrigin = location.hostname === "stms.mr-mpwong-jimmy.workers.dev" ? "" : "https://stms.mr-mpwong-jimmy.workers.dev";
+      var teacherSelect = document.getElementById("teacher-select");
+      var lessonCells = document.querySelectorAll("[data-week][data-lesson]");
+
+      function clearLessons() {
+        lessonCells.forEach(function (cell) {
+          cell.textContent = "";
+        });
+      }
+
+      function fillLessons(lessons) {
+        clearLessons();
+        lessons.forEach(function (lesson) {
+          var cell = document.querySelector(
+            '[data-week="' + lesson.week + '"][data-lesson="' + lesson.lesson + '"]'
+          );
+          if (!cell) return;
+          cell.textContent = [lesson.className, lesson.room, lesson.subject]
+            .filter(function (part) { return part !== null && part !== undefined && String(part) !== ""; })
+            .join(" ");
+        });
+      }
+
+      fetch(apiOrigin + "/api/teachers")
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          (data.teachers || []).forEach(function (teacher) {
+            var option = document.createElement("option");
+            option.value = teacher.teacher;
+            option.textContent = teacher.displayName
+              ? teacher.teacher + "（" + teacher.displayName + "）"
+              : teacher.teacher;
+            teacherSelect.appendChild(option);
+          });
+        })
+        .catch(function () {
+          document.getElementById("note").textContent = "無法載入老師名單。";
+        });
+
+      teacherSelect.addEventListener("change", function () {
+        if (!teacherSelect.value) {
+          clearLessons();
+          return;
+        }
+        fetch(apiOrigin + "/api/timetable?teacher=" + encodeURIComponent(teacherSelect.value))
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            fillLessons(data.lessons || []);
+          })
+          .catch(function () {
+            document.getElementById("note").textContent = "無法載入時間表。";
+          });
+      });
+
       document.getElementById("teacher-timetable").addEventListener("click", function () {
         document.getElementById("teacher-timetable-panel").scrollIntoView({ behavior: "smooth", block: "start" });
       });
@@ -402,7 +532,7 @@
 
       document.getElementById("logout").addEventListener("click", function () {
         sessionStorage.removeItem("stmsDisplayName");
-        window.location.href = "index.html";
+        window.location.replace("index.html");
       });
     })();
   </script>
